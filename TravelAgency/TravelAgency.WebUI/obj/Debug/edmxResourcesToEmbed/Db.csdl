@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TravelAgencyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Associate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Passport" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNum" Type="Int32" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Associate_Id" FromRole="Associate" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Country" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Country1" Relationship="Self.FK_City_Country_Id" FromRole="City" ToRole="Country" />
+    <NavigationProperty Name="Hotel" Relationship="Self.FK_Hotel_City_Id" FromRole="City" ToRole="Hotel" />
+    <NavigationProperty Name="Flight" Relationship="Self.Flight_ArrCity" FromRole="City" ToRole="Flight" />
+    <NavigationProperty Name="Flight1" Relationship="Self.Flight_DepCity" FromRole="City" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Passport" Type="Int32" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNum" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Client_Id" FromRole="Client" ToRole="Sale" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Self.FK_City_Country_Id" FromRole="Country" ToRole="City" />
+  </EntityType>
+  <EntityType Name="Flight">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ArrDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="City" Relationship="Self.Flight_ArrCity" FromRole="Flight" ToRole="City" />
+    <NavigationProperty Name="City1" Relationship="Self.Flight_DepCity" FromRole="Flight" ToRole="City" />
+    <NavigationProperty Name="Tour" Relationship="Self.Tour_ArrFlight" FromRole="Flight" ToRole="Tour" />
+    <NavigationProperty Name="Tour1" Relationship="Self.Tour_DepFlight" FromRole="Flight" ToRole="Tour" />
+  </EntityType>
+  <EntityType Name="Hotel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Stars" Type="Int32" Nullable="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="AllocationType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NightPrice" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Self.FK_Hotel_City_Id" FromRole="Hotel" ToRole="City" />
+    <NavigationProperty Name="Tour" Relationship="Self.FK_Tour_Hotel_Id" FromRole="Hotel" ToRole="Tour" />
+  </EntityType>
+  <EntityType Name="Sale">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="TourId" Type="Int32" Nullable="false" />
+    <Property Name="AssociateId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Associate" Relationship="Self.FK_Sale_Associate_Id" FromRole="Sale" ToRole="Associate" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Sale_Client_Id" FromRole="Sale" ToRole="Client" />
+    <NavigationProperty Name="Tour" Relationship="Self.FK_Sale_Tour_Id" FromRole="Sale" ToRole="Tour" />
+  </EntityType>
+  <EntityType Name="Tour">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FoodType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HotelId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Hotel" Relationship="Self.FK_Tour_Hotel_Id" FromRole="Tour" ToRole="Hotel" />
+    <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Tour_Id" FromRole="Tour" ToRole="Sale" />
+    <NavigationProperty Name="Flight" Relationship="Self.Tour_ArrFlight" FromRole="Tour" ToRole="Flight" />
+    <NavigationProperty Name="Flight1" Relationship="Self.Tour_DepFlight" FromRole="Tour" ToRole="Flight" />
+  </EntityType>
+  <EntityType Name="Tours">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FoodType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HotelId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Sale_Associate_Id">
+    <End Role="Associate" Type="Self.Associate" Multiplicity="1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Associate">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="AssociateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_Country_Id">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="Country" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hotel_City_Id">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Hotel" Type="Self.Hotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Hotel">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sale_Client_Id">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tour_Hotel_Id">
+    <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+    <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hotel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tour">
+        <PropertyRef Name="HotelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sale_Tour_Id">
+    <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tour">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Sale">
+        <PropertyRef Name="TourId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Flight_ArrCity">
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+  </Association>
+  <Association Name="Flight_DepCity">
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+  </Association>
+  <Association Name="Tour_ArrFlight">
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+  </Association>
+  <Association Name="Tour_DepFlight">
+    <End Role="Flight" Type="Self.Flight" Multiplicity="*" />
+    <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="TravelAgencyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Associate" EntityType="Self.Associate" />
+    <EntitySet Name="City" EntityType="Self.City" />
+    <EntitySet Name="Client" EntityType="Self.Client" />
+    <EntitySet Name="Country" EntityType="Self.Country" />
+    <EntitySet Name="Flight" EntityType="Self.Flight" />
+    <EntitySet Name="Hotel" EntityType="Self.Hotel" />
+    <EntitySet Name="Sale" EntityType="Self.Sale" />
+    <EntitySet Name="Tour" EntityType="Self.Tour" />
+    <EntitySet Name="Tours" EntityType="Self.Tours" />
+    <AssociationSet Name="FK_Sale_Associate_Id" Association="Self.FK_Sale_Associate_Id">
+      <End Role="Associate" EntitySet="Associate" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_Country_Id" Association="Self.FK_City_Country_Id">
+      <End Role="Country" EntitySet="Country" />
+      <End Role="City" EntitySet="City" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hotel_City_Id" Association="Self.FK_Hotel_City_Id">
+      <End Role="City" EntitySet="City" />
+      <End Role="Hotel" EntitySet="Hotel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sale_Client_Id" Association="Self.FK_Sale_Client_Id">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tour_Hotel_Id" Association="Self.FK_Tour_Hotel_Id">
+      <End Role="Hotel" EntitySet="Hotel" />
+      <End Role="Tour" EntitySet="Tour" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sale_Tour_Id" Association="Self.FK_Sale_Tour_Id">
+      <End Role="Tour" EntitySet="Tour" />
+      <End Role="Sale" EntitySet="Sale" />
+    </AssociationSet>
+    <AssociationSet Name="Flight_ArrCity" Association="Self.Flight_ArrCity">
+      <End Role="City" EntitySet="City" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="Flight_DepCity" Association="Self.Flight_DepCity">
+      <End Role="City" EntitySet="City" />
+      <End Role="Flight" EntitySet="Flight" />
+    </AssociationSet>
+    <AssociationSet Name="Tour_ArrFlight" Association="Self.Tour_ArrFlight">
+      <End Role="Flight" EntitySet="Flight" />
+      <End Role="Tour" EntitySet="Tour" />
+    </AssociationSet>
+    <AssociationSet Name="Tour_DepFlight" Association="Self.Tour_DepFlight">
+      <End Role="Flight" EntitySet="Flight" />
+      <End Role="Tour" EntitySet="Tour" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

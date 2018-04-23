@@ -1,0 +1,44 @@
+﻿@model TravelAgency.Domain.Entities.Hotel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h2>Edit</h2>
+    </div>
+    @using (Html.BeginForm("Edit", "Hotel"))
+    {
+        <div class="panel-body">
+            <div class="form-group">
+                <label>Название</label>
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Количество звезд</label>
+                @Html.TextBoxFor(x => x.Stars, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Цена за ночь</label>
+                @Html.TextBoxFor(x => x.NightPrice, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Город расположения</label>
+                @Html.DropDownListFor(x => x.CityId, Model.SelectCity, new { @class = "form-control" })
+            </div>
+            @*<div class="form-group">
+                <label>Отель</label>
+                @Html.DropDownListFor(x => x.HotelId, Model.SelectHotel, new { @class = "form-control" })
+            </div>*@
+
+
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Сохранить" class="btn btn-primary" />
+            @Html.ActionLink("Отменить изменения и вернуться к списку", "Index", null, new { @class = "btn brn-default" })
+
+        </div>
+    }
+</div>
+<

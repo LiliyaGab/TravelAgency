@@ -1,0 +1,20 @@
+﻿@using TravelAgency.Domain.Entities
+@model IEnumerable<Tour>
+
+@{
+    ViewBag.Title = "Туры";
+}
+
+@foreach (var p in @Model)
+{
+    <div>
+        <h3>@p.StartDate.Date</h3>
+        <h3>@p.EndDate.Date</h3>
+        <h3>@p.Description</h3>
+        <h3>@p.TourType.Type</h3>
+        <h3>@p.FoodType1.FoodType1</h3>
+        <h3>@p.Hotel.Name</h3>
+        <h3>@p.Hotel.City.Name</h3>
+    </div>
+}
+

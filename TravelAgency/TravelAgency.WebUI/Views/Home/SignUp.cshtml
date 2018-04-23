@@ -1,0 +1,80 @@
+﻿@model TravelAgency.Domain.Entities.Client
+
+@{
+    ViewBag.Title = "SignUp";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RSVPForm</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Styles.css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    @*<style>
+        body{
+            background-image: url(../../Content/пальма3jpg.jpg)
+        }
+    </style>*@
+</head>
+<body>
+    <div class="panel-success">
+        <div class="panel-heading text-center">
+            <h4>Регистрация</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            { 
+                @Html.ValidationSummary()
+                <div class="validation-summary-errors">
+                    @ViewBag.NotUniqueLogin
+                </div>
+                <div class="form-group">
+                    <label>Ваше имя:</label>
+                    @Html.TextBoxFor(x => x.FullName, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(x => x.FullName)*@
+                </div>
+                <div class="form-group">
+                    <label>Ваша дата рождения:</label>
+                    @Html.DropDownListFor(x => x.BirthdateDay, Model.BirthdateDaySelectList, new { @class = "form-control"})
+                    @Html.DropDownListFor(x => x.BirthdateMonth, Model.BirthdateMonthSelectList, new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.BirthdateYear, Model.BirthdateYearSelectList, new { @class = "form-control" })
+                    @*@Html.TextBoxFor(x => x.DOB, new { @class = "form-control" })*@
+                   @* @Html.ValidationMessageFor(x => x.DOB)*@
+                </div>
+                <div class="form-group">
+                    <label>Ваш паспорт:</label>
+                    @Html.TextBoxFor(x => x.Passport, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(x => x.Passport)*@
+                </div>
+                <div class="form-group">
+                    <label>Ваш телефон:</label>
+                    @Html.TextBoxFor(x => x.PhoneNum, new { @class = "form-control" })
+                    @*@Html.ValidationMessageFor(x => x.PhoneNum)*@
+                </div>
+                <div class="form-group">
+                    <label>Ваш адрес:</label>
+                    @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+                   @* @Html.ValidationMessageFor(x => x.Address)*@
+                </div>
+                <div class="form-group">
+                    <label>Придумайте логин:</label>
+                    @Html.TextBoxFor(x => x.User.Login, new { @class = "form-control" })
+                   @* @Html.ValidationMessageFor(x => x.User.Login)*@
+                </div>
+                <div class="form-group">
+                    <label>Придумайте пароль:</label>
+                    @Html.PasswordFor(x => x.User.Password, new { @class = "form-control" })
+                   @* @Html.ValidationMessageFor(x => x.User.Password)*@
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Отправить" class="btn-success" />
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

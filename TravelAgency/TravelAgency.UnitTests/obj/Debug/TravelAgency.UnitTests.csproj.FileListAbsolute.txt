@@ -1,0 +1,1 @@
+C:\Users\Lilia\documents\visual studio 2013\Projects\TravelAgency\TravelAgency.UnitTests\obj\Debug\TravelAgency.UnitTests.csprojResolveAssemblyReference.cache

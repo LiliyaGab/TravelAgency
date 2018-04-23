@@ -1,0 +1,48 @@
+﻿@model TravelAgency.Domain.Entities.Tour
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h2>Редактирование тура c ID="@Model.Id"</h2>
+    </div>
+    @using (Html.BeginForm("Edit", "Tour"))
+    {
+        <div class="panel-body">
+            <div class="form-group">
+                <label>Дата начала</label>
+                @Html.TextBoxFor(x => x.StartDate, new { @class = "form-control"})
+            </div>
+            <div class="form-group">
+                <label>Дата конца</label>
+                @Html.TextBoxFor(x => x.EndDate, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Описание</label>
+                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", rows = 5})
+            </div>
+           
+            <div class="form-group">
+                <label>Тип тура</label>
+                @Html.DropDownListFor(x => x.Type, Model.SelectType, new { @class = "form-control"})
+            </div>
+            <div class="form-group">
+                <label>Тип питания</label>
+                @Html.DropDownListFor(x => x.FoodType, Model.SelectFoodType, new { @class = "form-control"})
+            </div>
+            <div class="form-group">
+                <label>Отель</label>
+                @Html.DropDownListFor(x => x.HotelId, Model.SelectHotel, new { @class = "form-control"})
+            </div>
+            
+
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Сохранить" class="btn btn-primary"/>
+            @Html.ActionLink("Отменить изменения и вернуться к списку", "Index", null, new { @class = "btn brn-default" })
+
+        </div>
+    }
+    </div>

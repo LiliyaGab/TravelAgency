@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/cover.css" rel="stylesheet" />
+    @*<style>
+        body{
+            background-image: url(../../Content/пальма2.jpg);
+        }
+    </style>*@
+</head>
+<body>
+    <div class="site-wrapper">
+
+        <div class="site-wrapper-inner">
+
+            <div class="cover-container">
+
+                <div class="masthead clearfix">
+                    <div class="inner">
+                        <h3 class="masthead-brand">Village Travel</h3>
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <li class="active">@Html.ActionLink("Home","Index")</li>
+                                <li class="active">@Html.ActionLink("Sign Up", "SignUp")</li>
+                                <li class="active">@Html.ActionLink("Sig In", "SignIn")</li>
+                                <li class="active">@Html.ActionLink("Tours", "List")</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Travel Agency</h1>
+                    <p class="lead" >At Village Travel, we have consultants with an average of 20 years experience and a passion for travel available who will work out the details and create unforgettable vacations.
+
+We will work with you to plan a worry free adventure that meets your travel needs, expectations and budget. When you plan your vacation with us we are there throughout the entire process.  This means making ourselves available to you before, during and after travel.
+
+We plan river and ocean cruises, romantic honeymoon packages to sunny destinations, family, adventure and wellness travel along with international and domestic customized itineraries.</p>
+                    
+                    <div class="btn btn-lg btn-default">
+                        <a>@Html.ActionLink("Go!", "AutorizationForm")</a>
+                    </div>
+             </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
